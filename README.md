@@ -10,7 +10,7 @@ Read the intro blog post [here](http://siliconsenthil.in/blog/2017/04/02/so-you-
 
 ## Dependency
 
-This uses [ngrok](https://ngrok.com) to publish URL that's accessible via internet.
+This uses [ngrok](https://ngrok.com) to publish URL that's accessible via internet. Ensure it'a available in `PATH`.
 
 ## Installation
 
