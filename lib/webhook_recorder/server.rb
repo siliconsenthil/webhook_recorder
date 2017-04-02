@@ -20,7 +20,7 @@ module WebhookRecorder
       server = new(port, response_config, log_verbose)
       server.start
       server.wait
-      Ngrok::Tunnel.start(port: port)
+      Ngrok::Tunnel.start(port: port, authtoken: ENV['NGROK_AUTH_TOKEN'])
       server.http_url = Ngrok::Tunnel.ngrok_url
       server.https_url = Ngrok::Tunnel.ngrok_url_https
       yield server

@@ -26,6 +26,8 @@ Or install it yourself as:
 
 ## Usage
 
+* If you have ngrok account, set env. var `NGROK_AUTH_TOKEN` before running
+
 ```ruby
 it 'should respond as defined as response_config' do
   response_config = { '/hello' => { code: 200, body: 'Expected result' } }
