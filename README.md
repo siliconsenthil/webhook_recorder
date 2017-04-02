@@ -4,6 +4,8 @@ When you build a feature that makes calls to webhooks of subscribers, this libra
 
 This runs a simple WEBrick server, makes it accessible via [ngrok](https://ngrok.com) and records the results. You can assert on the recorded requests to ensure the code you built made calls to registered webhooks.
 
+[![CircleCI](https://circleci.com/gh/siliconsenthil/webhook_recorder/tree/master.svg?style=svg)](https://circleci.com/gh/siliconsenthil/webhook_recorder/tree/master)
+
 ## Dependency
 
 This uses [ngrok](https://ngrok.com) to publish URL that's accessible via internet.
