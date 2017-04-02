@@ -1,3 +1,9 @@
+checkout:
+  pre:
+    - wget https://s3.amazonaws.com/build-tools-prd/ngrok.zip
+    - unzip ngrok.zip
+    - mv ngrok $HOME/bin
+
 dependencies:
   pre:
     - gem install bundler -v 1.14.6
