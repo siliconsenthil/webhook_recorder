@@ -6,6 +6,8 @@ This runs a simple WEBrick server, makes it accessible via [ngrok](https://ngrok
 
 [![CircleCI](https://circleci.com/gh/siliconsenthil/webhook_recorder/tree/master.svg?style=svg)](https://circleci.com/gh/siliconsenthil/webhook_recorder/tree/master)
 
+Read the intro blog post [here](http://siliconsenthil.in/blog/2017/04/02/so-you-built-webhooks-and-wanna-test/).
+
 ## Dependency
 
 This uses [ngrok](https://ngrok.com) to publish URL that's accessible via internet.
