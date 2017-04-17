@@ -29,6 +29,25 @@ RSpec.describe WebhookRecorder do
       end
     end
 
+    it 'should run in localhost if ngrok option is toggled off' do
+      response_config = { '/hello' => { code: 200, body: 'Expected result' } }
+      WebhookRecorder::Server.open(@port, response_config, http_expose = false) do |server|
+        expect(server.http_url).to be_nil
+        expect(server.https_url).to be_nil
+
+        res = RestClient.post "http://localhost:#{@port}/hello?q=1", {some: 1, other: 2}.to_json
+
+        expect(res.code).to eq(200)
+        expect(res.body).to eq('Expected result')
+        expect(server.recorded_reqs.size).to eq(1)
+        req1 = server.recorded_reqs.first
+        expect(req1[:request_path]).to eq('/hello')
+        expect(req1[:query_string]).to include('q=1')
+        expect(req1[:http_user_agent]).to include('rest-client')
+        expect(JSON.parse(req1[:request_body]).symbolize_keys).to eq({some: 1, other: 2})
+      end
+    end
+
     it 'should respond with 404 if not configured' do
       WebhookRecorder::Server.open(@port, {}) do |server|
         expect(server.http_url).not_to be_nil

@@ -6,23 +6,27 @@ require 'active_support/core_ext/hash'
 
 module WebhookRecorder
   class Server
-    attr_accessor :recorded_reqs, :http_url, :https_url, :response_config, :port, :log_verbose
+    attr_accessor :recorded_reqs, :http_url, :https_url, :response_config,
+                  :port, :http_expose, :log_verbose
 
-    def initialize(port, response_config, log_verbose = false)
+    def initialize(port, response_config, http_expose = true, log_verbose = false)
       self.port = port
       self.response_config = response_config
       self.recorded_reqs = []
+      self.http_expose = http_expose
       self.log_verbose = log_verbose
       @started = false
     end
 
-    def self.open(port, response_config, log_verbose=false)
-      server = new(port, response_config, log_verbose)
+    def self.open(port, response_config, http_expose = true, log_verbose=false)
+      server = new(port, response_config, http_expose, log_verbose)
       server.start
       server.wait
-      Ngrok::Tunnel.start(port: port, authtoken: ENV['NGROK_AUTH_TOKEN'])
-      server.http_url = Ngrok::Tunnel.ngrok_url
-      server.https_url = Ngrok::Tunnel.ngrok_url_https
+      if server.http_expose
+        Ngrok::Tunnel.start(port: port, authtoken: ENV['NGROK_AUTH_TOKEN'])
+        server.http_url = Ngrok::Tunnel.ngrok_url
+        server.https_url = Ngrok::Tunnel.ngrok_url_https
+      end
       yield server
     ensure
       server.recorded_reqs.clear

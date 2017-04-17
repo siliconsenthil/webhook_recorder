@@ -52,6 +52,14 @@ it 'should respond as defined as response_config' do
 end
 ```
 
+* If you don't want to expose the stub server to internet and test only locally, you toggle the behavior with
+
+```ruby
+  WebhookRecorder::Server.open(@port, response_config, false) do |server|
+    # server.http_url and server.https_url will be nil
+  end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
