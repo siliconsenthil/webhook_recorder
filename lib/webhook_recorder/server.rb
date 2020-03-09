@@ -59,7 +59,7 @@ module WebhookRecorder
         res = response_config[path]
         [res[:code], res[:headers] || {}, [res[:body] || "Missing body in response_config"]]
       else
-        warn "WebhookRecorder::Server: Missing response_config for path #{path}"
+        warn "WebhookRecorder::Server: Missing response_config for path #{path}" if self.log_verbose
         [404, {}, ["WebhookRecorder::Server: Missing response_config for path #{path}"]]
       end
     end
